@@ -1,0 +1,277 @@
+/* --- RESET / BASE --- */
+.aspen-header {
+	width: 100%;
+	font-family: "Open Sans", sans-serif; /* Or your site font */
+	position: relative;
+	z-index: 1000;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.max-width {
+	max-width: 1400px;
+	margin: 0 auto;
+	padding: 0 20px;
+}
+
+/* --- ROW 1: Utility Bar --- */
+.utility-bar {
+	background-color: var(--white);
+	border-bottom: 1px solid var(--grey-100);
+	padding: 12px 0;
+}
+
+.utility-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+/* Search */
+.search-wrapper {
+	flex: 1;
+	max-width: 400px;
+}
+
+.search-form {
+	display: flex;
+	align-items: center;
+	border: 1px solid var(--blue);
+	border-radius: 20px;
+	overflow: hidden;
+	height: 36px;
+}
+
+.search-input {
+	flex: 1;
+	border: none;
+	padding: 0 15px;
+	outline: none;
+	font-size: 14px;
+	color: var(--grey-700);
+}
+
+.search-input::placeholder {
+	color: var(--grey-200);
+}
+
+.search-btn {
+	background-color: var(--blue);
+	border: none;
+	width: 36px;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--dark-blue);
+	cursor: pointer;
+	transition: background 0.2s;
+}
+
+.search-btn:hover {
+	filter: brightness(0.9);
+}
+
+/* Links */
+.utility-links {
+	display: flex;
+	align-items: center;
+	gap: 25px;
+}
+
+.u-link {
+	color: var(--dark-blue); /* Screenshot shows blue-ish text */
+	text-decoration: none;
+	font-size: 14px;
+	font-weight: 500;
+}
+
+.u-link:hover {
+	text-decoration: underline;
+}
+
+.icon-links {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+	color: var(--blue);
+}
+
+.icon-links a {
+	color: var(--blue);
+	display: flex;
+	align-items: center;
+}
+
+/* --- ROW 2: Main Navigation --- */
+.main-nav-bar {
+	background-color: var(--dark-blue);
+	height: 70px; /* Adjust based on logo size */
+}
+
+.nav-container {
+	display: flex;
+	align-items: center;
+	height: 100%;
+}
+
+.logo-wrapper {
+	margin-right: 60px;
+	display: flex;
+	align-items: center;
+}
+
+.main-logo {
+	height: 40px; /* Adjust based on aspect ratio */
+	width: auto;
+}
+
+.desktop-nav {
+	height: 100%;
+	flex: 1;
+}
+
+.nav-level-1 {
+	display: flex;
+	gap: 40px;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	height: 100%;
+}
+
+.nav-item-1 {
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
+
+.nav-link-1 {
+	color: var(--white);
+	text-decoration: none;
+	text-transform: uppercase;
+	font-weight: 700;
+	font-size: 14px;
+	letter-spacing: 0.5px;
+	position: relative;
+	padding: 24px 0;
+}
+
+.nav-link-1:hover,
+.nav-link-1.active,
+.nav-item-1:hover .nav-link-1 {
+	/* The underline effect */
+	border-bottom: 3px solid var(--white);
+}
+
+/* --- MEGA MENU --- */
+.has-mega-menu:hover .mega-menu-dropdown {
+	display: block;
+	opacity: 1;
+	visibility: visible;
+}
+
+.mega-menu-dropdown {
+	display: none; /* Hidden by default */
+	position: absolute;
+	top: 100%; /* Below the navbar */
+	left: 0;
+	width: 100%;
+	background-color: var(--white);
+	border-bottom: 1px solid var(--grey-200);
+	z-index: 900;
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+	opacity: 0;
+	visibility: hidden;
+	transition: all 0.2s ease-in-out;
+}
+
+.mega-menu-inner {
+	display: flex;
+	min-height: 400px;
+}
+
+/* Left Sidebar of Mega Menu */
+.mega-sidebar {
+	width: 300px;
+	background-color: #f9f9f9; /* Light grey sidebar */
+	list-style: none;
+	padding: 20px 0;
+	margin: 0;
+	border-right: 1px solid var(--grey-100);
+}
+
+.mega-cat-item {
+	position: relative;
+}
+
+.cat-link {
+	display: flex;
+	justify-content: space-between;
+	padding: 12px 20px;
+	color: var(--dark-blue);
+	font-weight: 700;
+	font-size: 15px;
+	cursor: pointer;
+	transition: background 0.2s;
+}
+
+.cat-link:hover,
+.mega-cat-item:hover .cat-link {
+	background-color: var(--white);
+	color: var(--blue);
+}
+
+.arrow {
+	font-weight: bold;
+}
+
+/* Right Content Panel (Dynamic) */
+.mega-content-panel {
+	display: none;
+	position: absolute;
+	left: 300px; /* Width of sidebar */
+	top: 0;
+	width: calc(100% - 300px); /* Fill rest */
+	height: 100%;
+	padding: 40px;
+	background-color: var(--white);
+}
+
+/* Show content when hovering sidebar item */
+.mega-cat-item:hover .mega-content-panel {
+	display: block;
+}
+
+/* Fallback: show first item by default if no hover? 
+   CSS-only is tricky for "default selected". 
+   Usually, React state is better for this, but this CSS 
+   structure mimics the screenshot's layout.
+*/
+
+.panel-title {
+	color: var(--dark-blue);
+	font-size: 18px;
+	margin-bottom: 20px;
+	border-bottom: 1px solid var(--grey-200);
+	padding-bottom: 10px;
+}
+
+.panel-links {
+	list-style: none;
+	padding: 0;
+	columns: 2; /* Split links into 2 columns */
+}
+
+.panel-links li {
+	margin-bottom: 12px;
+}
+
+.panel-links a {
+	color: var(--grey-700);
+	text-decoration: none;
+	font-size: 14px;
+}
+
+.panel-links a:hover {
+	color: var(--blue);
+}
