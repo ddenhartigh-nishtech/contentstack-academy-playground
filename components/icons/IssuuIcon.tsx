@@ -5,7 +5,7 @@ const IssuuIcon: React.FC<IconProps> = ({
 	size = 20,
 	color = "currentColor",
 	className,
-	ariaLabel = "Cart",
+	ariaLabel = "Issuu",
 }) => {
 	return (
 		<svg
