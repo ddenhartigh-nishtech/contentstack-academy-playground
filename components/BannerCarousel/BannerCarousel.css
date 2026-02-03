@@ -1,0 +1,83 @@
+/* The "Viewport" hides the slides that aren't active */
+.banner-viewport {
+	overflow: hidden;
+	width: 100%;
+	height: 600px; /* Adjust height to match your design */
+	position: relative;
+	background-color: var(--light-gray);
+}
+
+/* The "Container" holds the slides in a single horizontal row */
+.banner-container {
+	display: flex;
+	height: 100%;
+	cursor: grab;
+}
+
+.banner-container:active {
+	cursor: grabbing;
+}
+
+/* Each slide takes up 100% of the viewport width */
+.banner-slide {
+	flex: 0 0 100%;
+	min-width: 0;
+	position: relative;
+	height: 100%;
+}
+
+/* Background Image: set to cover the whole slide */
+.banner-img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover; /* Prevents distortion */
+	z-index: 1;
+}
+
+/* Text Content: Overlaid on top of image */
+.banner-content {
+	position: absolute; /* Changed from relative */
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 2;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center; /* Centers content horizontally */
+	text-align: center; /* Centers text */
+	padding: 0 10%; /* Padding on both sides */
+	color: var(--dark-blue);
+}
+
+.banner-title {
+	font-size: 3.5rem;
+	font-weight: 700;
+	margin-bottom: 0.5rem;
+	max-width: 600px;
+}
+
+.banner-text {
+	font-size: 1.2rem;
+	margin-bottom: 2rem;
+	max-width: 500px;
+}
+
+.banner-cta {
+	background-color: var(--orange);
+	color: var(--white);
+	padding: 12px 30px;
+	border-radius: 50px;
+	text-decoration: none;
+	font-weight: bold;
+	width: fit-content;
+	display: inline-block;
+	transition: background 0.3s ease;
+}
+
+.banner-cta:hover {
+	background-color: #e55a1a;
+}

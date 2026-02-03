@@ -15,6 +15,7 @@ export default function Home() {
 	async function fetchData() {
 		try {
 			const entryRes = await getPageRes(entryUrl);
+			console.log("entryRes", entryRes);
 			if (!entryRes) throw new Error("Status code 404");
 			setEntry(entryRes);
 		} catch (error) {
@@ -26,13 +27,11 @@ export default function Home() {
 		onEntryChange(() => fetchData());
 	}, []);
 
-	return getEntry?.page_components ? (
+	return getEntry?.content ? (
 		<>
-			{getEntry.seo &&
-				getEntry.seo.enable_search_indexing &&
-				metaData(getEntry.seo)}
+			{getEntry.seo && metaData(getEntry.seo)}
 			<RenderComponents
-				pageComponents={getEntry.page_components}
+				pageComponents={getEntry.content}
 				contentTypeUid="page"
 				entryUid={getEntry.uid}
 				locale={getEntry.locale}
@@ -41,4 +40,20 @@ export default function Home() {
 	) : (
 		<Skeleton count={3} height={300} />
 	);
+
+	// return getEntry?.page_components ? (
+	// 	<>
+	// 		{getEntry.seo &&
+	// 			getEntry.seo.enable_search_indexing &&
+	// 			metaData(getEntry.seo)}
+	// 		<RenderComponents
+	// 			pageComponents={getEntry.page_components}
+	// 			contentTypeUid="page"
+	// 			entryUid={getEntry.uid}
+	// 			locale={getEntry.locale}
+	// 		/>
+	// 	</>
+	// ) : (
+	// 	<Skeleton count={3} height={300} />
+	// );
 }

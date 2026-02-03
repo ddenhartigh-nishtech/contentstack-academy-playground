@@ -56,7 +56,12 @@ export const getPageRes = async (entryUrl) => {
 	const response = await Stack.getEntryByUrl({
 		contentTypeUid: "page",
 		entryUrl,
-		referenceFieldPath: ["page_components.superheroes.character"],
+		referenceFieldPath: [
+			"content.carousel.banner_carousel",
+			"content.featured_products.featured_products",
+			"content.shop_by_category.shop_by_category",
+			"content.category_grid.shop_by_category_grid",
+		],
 		jsonRtePath: [
 			"page_components.section_with_buckets.buckets.description",
 			"page_components.section_with_html_code.description",

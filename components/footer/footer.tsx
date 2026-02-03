@@ -25,7 +25,7 @@ export default function Footer() {
 	const fetchData = async () => {
 		try {
 			const footerRes = await getFooterRes();
-			console.log("Footer Response:", footerRes);
+			// console.log("Footer Response:", footerRes);
 			setFooter(footerRes);
 		} catch (error) {
 			console.error("Error fetching footer:", error);

@@ -10,6 +10,7 @@ import CardSection from "./card-section";
 import SectionWithHtmlCode from "./section-with-html-code";
 import TeamSection from "./team-section";
 import GalleryReact from "./gallery";
+import BannerCarousel from "./BannerCarousel/BannerCarousel";
 
 export default function RenderComponents(props: RenderProps) {
 	const { pageComponents, blogPost, entryUid, contentTypeUid, locale } =
@@ -22,6 +23,15 @@ export default function RenderComponents(props: RenderProps) {
 			data-locale={locale}
 		>
 			{pageComponents?.map((component, key: number) => {
+				if (component.carousel) {
+					return (
+						<BannerCarousel
+							key={`component-${key}`}
+							data={component.carousel}
+						/>
+					);
+				}
+
 				if (component.hero_banner) {
 					return blogPost ? (
 						<BlogBanner

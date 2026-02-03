@@ -124,8 +124,6 @@ export type PageProps = {
 //   $: AdditionalParam;
 // }
 
-import { Image, AdditionalParam } from "./index"; // Adjust imports based on your file structure
-
 export type Link = {
 	title: string;
 	href: string;
