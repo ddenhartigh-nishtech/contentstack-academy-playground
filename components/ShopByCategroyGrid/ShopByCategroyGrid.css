@@ -1,0 +1,59 @@
+/* Section Background */
+.category-grid-section {
+	background-color: var(--light-blue);
+	padding: 60px 0;
+	width: 100%;
+}
+
+.category-grid-container {
+	max-width: 1200px;
+	margin: 0 auto;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 30px;
+	padding: 0 20px;
+}
+
+/* Individual Card/Tile */
+.category-tile {
+	position: relative; /* Added this so absolute positioning works */
+	flex: 0 1 calc(33.333% - 20px);
+	min-width: 280px;
+	background-color: white;
+	border-radius: 15px;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	text-decoration: none;
+	transition: transform 0.2s ease;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.category-tile:hover {
+	transform: translateY(-5px);
+}
+
+/* Image styling */
+.category-tile-image {
+	width: 100%;
+	height: 250px;
+	object-fit: cover;
+	display: block;
+}
+
+/* Dark Blue Bottom Band - Always Visible */
+.category-tile-band {
+	position: absolute;
+	bottom: 0; /* Changed from 5px to 0 */
+	left: 0; /* Changed from 50% */
+	transform: none; /* Removed translateX */
+	width: 100%;
+	font-size: 1.1rem;
+	z-index: 2;
+	background-color: var(--dark-blue);
+	color: white;
+	padding: 15px;
+	text-align: center;
+	font-weight: bold;
+}

@@ -11,6 +11,9 @@ import SectionWithHtmlCode from "./section-with-html-code";
 import TeamSection from "./team-section";
 import GalleryReact from "./gallery";
 import BannerCarousel from "./BannerCarousel/BannerCarousel";
+import FeaturedProducts from "./FeaturedProducts/FeaturedProducts";
+import ShopByCategory from "./ShopByCategory/ShopByCategory";
+import CategoryGrid from "./ShopByCategroyGrid/ShopByCategroyGrid";
 
 export default function RenderComponents(props: RenderProps) {
 	const { pageComponents, blogPost, entryUid, contentTypeUid, locale } =
@@ -28,6 +31,33 @@ export default function RenderComponents(props: RenderProps) {
 						<BannerCarousel
 							key={`component-${key}`}
 							data={component.carousel}
+						/>
+					);
+				}
+
+				if (component.featured_products) {
+					return (
+						<FeaturedProducts
+							key={`component-${key}`}
+							data={component.featured_products}
+						/>
+					);
+				}
+
+				if (component.shop_by_category) {
+					return (
+						<ShopByCategory
+							key={`component-${key}`}
+							data={component.shop_by_category}
+						/>
+					);
+				}
+
+				if (component.category_grid) {
+					return (
+						<CategoryGrid
+							key={`component-${key}`}
+							data={component.category_grid}
 						/>
 					);
 				}
