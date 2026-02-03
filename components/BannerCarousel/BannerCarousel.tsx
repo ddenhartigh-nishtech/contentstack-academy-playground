@@ -1,11 +1,39 @@
 "use client";
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import "./BannerCarousel.css";
 
 export default function BannerCarousel({ data }: { data: any }) {
 	const slides = data.banner_carousel?.[0]?.slides || [];
-	const [emblaRef] = useEmblaCarousel({ loop: true });
+	const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+	const [selectedIndex, setSelectedIndex] = useState(0);
+
+	const scrollPrev = useCallback(() => {
+		if (emblaApi) emblaApi.scrollPrev();
+	}, [emblaApi]);
+
+	const scrollNext = useCallback(() => {
+		if (emblaApi) emblaApi.scrollNext();
+	}, [emblaApi]);
+
+	const scrollTo = useCallback(
+		(index: number) => {
+			if (emblaApi) emblaApi.scrollTo(index);
+		},
+		[emblaApi],
+	);
+
+	const onSelect = useCallback(() => {
+		if (!emblaApi) return;
+		setSelectedIndex(emblaApi.selectedScrollSnap());
+	}, [emblaApi]);
+
+	useEffect(() => {
+		if (!emblaApi) return;
+		onSelect();
+		emblaApi.on("select", onSelect);
+		emblaApi.on("reInit", onSelect);
+	}, [emblaApi, onSelect]);
 
 	return (
 		<section className="banner-viewport" ref={emblaRef}>
@@ -43,6 +71,36 @@ export default function BannerCarousel({ data }: { data: any }) {
 							)}
 						</div>
 					</div>
+				))}
+			</div>
+
+			{/* Navigation Buttons */}
+			<button
+				className="banner-nav banner-nav-prev"
+				onClick={scrollPrev}
+				aria-label="Previous slide"
+			>
+				‹
+			</button>
+			<button
+				className="banner-nav banner-nav-next"
+				onClick={scrollNext}
+				aria-label="Next slide"
+			>
+				›
+			</button>
+
+			{/* Dot Indicators */}
+			<div className="banner-dots">
+				{slides.map((_: any, index: number) => (
+					<button
+						key={index}
+						className={`banner-dot ${
+							index === selectedIndex ? "banner-dot-active" : ""
+						}`}
+						onClick={() => scrollTo(index)}
+						aria-label={`Go to slide ${index + 1}`}
+					/>
 				))}
 			</div>
 		</section>
