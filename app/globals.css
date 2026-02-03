@@ -14,12 +14,11 @@ a {
 	box-sizing: border-box;
 }
 
-:root {
-	/* Base */
+/* not seeing this */
+/* :root {
 	--white: #ffffff;
 	--black: #000000;
 
-	/* Greys */
 	--grey-100: #e5e6e5;
 	--grey-200: #c9c9c8;
 	--grey-600: #98a4ae;
@@ -27,8 +26,7 @@ a {
 	--grey-800: #363936;
 	--grey-900: #253746;
 
-	/* Brand */
 	--blue: #9adbe8;
 	--dark-blue: #013d54;
 	--red: #c8102e;
-}
+} */

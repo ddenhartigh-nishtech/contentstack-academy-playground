@@ -104,14 +104,21 @@
 
 /* --- ROW 2: Main Navigation --- */
 .main-nav-bar {
-	background-color: var(--dark-blue);
-	height: 70px; /* Adjust based on logo size */
+	/* background-color: var(--dark-blue); */
+	background-color: var(--light-blue);
+	background-image: linear-gradient(
+		to right,
+		var(--white-blue) 10%,
+		var(--light-blue) 30%,
+		var(--dark-blue) 70%
+	);
 }
 
 .nav-container {
 	display: flex;
 	align-items: center;
 	height: 100%;
+	padding: 36px 0px 35px;
 }
 
 .logo-wrapper {

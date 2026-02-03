@@ -7,8 +7,8 @@ import Skeleton from "react-loading-skeleton";
 import { onEntryChange } from "../../contentstack-sdk";
 import { getHeaderRes, getAllEntries } from "../../helper";
 import { PersonIcon, CartIcon, SearchIcon } from "../icons/index";
-import { HeaderData } from "./headerInterfaces";
-import "./header.css";
+import { HeaderData } from "./HeaderInterfaces";
+import "./Header.css";
 
 export default function Header() {
 	// --- State ---
@@ -67,6 +67,7 @@ export default function Header() {
 						</form>
 					</div>
 
+					{/* more logic needs to be done here for Account & Cart Icons, currently Account Menu and Cart are shown, but they should only shown when isLoggedIn == true and "sign in" should then be hidden.  Also, Account Menu should not show "Account Menu" but the person icon and clicking it should create a dropdown with the account_menu options.. this should probably be its own component */}
 					{/* Links */}
 					{headerData?.navigation_menu &&
 						headerData?.navigation_menu.map((item, index) => (
@@ -81,6 +82,7 @@ export default function Header() {
 				</div>
 			</div>
 
+			{/* this should probably be its own component as well */}
 			{/* --- ROW 2: Dynamic Logo & Mega Menu --- */}
 			{headerData.mega_menu && (
 				<div className="main-nav-bar">
@@ -116,7 +118,7 @@ export default function Header() {
 							<ul className="nav-level-1">
 								{headerData.mega_menu
 									.filter(
-										(item: any) =>
+										(item) =>
 											item.label?.toLowerCase() !==
 											"logo",
 									)
@@ -124,42 +126,32 @@ export default function Header() {
 										(a: any, b: any) =>
 											(a.order || 0) - (b.order || 0),
 									)
-									.map((item: any, index: number) => {
-										const isActive =
-											pathname ===
-											item.page_reference?.[0]?.url;
-
-										// Logic: Determine if this item has a dropdown.
-										// Adjust this condition based on your actual data (e.g., if item.sub_menu exists)
-
+									.map((item, index: number) => {
+										// what is isActive used for?  showing more mega menu options? page_reference is not on the model
+										// const isActive =
+										// 	pathname ===
+										// 	item.page_reference?.[0]?.url;
 										return (
 											<li
 												key={index}
 												className="nav-item-1 has-mega-menu"
 											>
 												<Link
-													href={
-														item.page_reference?.[0]
-															?.url || "#"
-													}
-													className={`nav-link-1 ${isActive ? "active" : ""}`}
+													href={item.link.href || "#"}
+													// className={`nav-link-1 ${isActive ? "active" : ""}`}
+													className="nav-link-1"
 												>
-													{item.label}
+													{item.label || ""}
 												</Link>
 
-												{/* 3. MEGA MENU DROPDOWN CONTENT */}
-
+												{/* 3. MEGA MENU DROPDOWN CONTENT t1 */}
 												<div className="mega-menu-dropdown">
 													<div className="max-width mega-menu-inner">
 														{/* Sidebar Categories */}
 														<ul className="mega-sidebar">
-															{console.log(
-																"Mega Menu Item:",
-																item,
-															)}
 															{item.mega_menu_t1?.map(
 																(
-																	cat: any,
+																	mmT1,
 																	catIndex: number,
 																) => (
 																	<li
@@ -169,11 +161,12 @@ export default function Header() {
 																		className="mega-cat-item"
 																	>
 																		<span className="cat-link">
-																			{cat.label ||
-																				cat.category}
-																			{cat
+																			{
+																				mmT1.label
+																			}
+																			{mmT1
 																				.mega_menu_t2
-																				.count >
+																				?.length >
 																				0 && (
 																				<span className="arrow">
 																					›
@@ -185,13 +178,13 @@ export default function Header() {
 																		<div className="mega-content-panel">
 																			<h4 className="panel-title">
 																				{
-																					cat.label
+																					mmT1.label
 																				}
 																			</h4>
 																			<ul className="panel-links">
-																				{cat.items?.map(
+																				{mmT1.mega_menu_t2?.map(
 																					(
-																						subItem: any,
+																						mmT2,
 																						subIndex: number,
 																					) => (
 																						<li
@@ -201,12 +194,15 @@ export default function Header() {
 																						>
 																							<Link
 																								href={
-																									subItem.url ||
+																									mmT2
+																										.link
+																										?.href ||
 																									"#"
 																								}
 																							>
-																								{subItem.label ||
-																									subItem}
+																								{
+																									mmT2.label
+																								}
 																							</Link>
 																						</li>
 																					),
