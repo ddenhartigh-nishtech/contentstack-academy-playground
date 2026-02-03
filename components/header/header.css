@@ -79,7 +79,7 @@
 }
 
 .u-link {
-	color: var(--dark-blue); /* Screenshot shows blue-ish text */
+	color: var(--blue);
 	text-decoration: none;
 	font-size: 14px;
 	font-weight: 500;
@@ -150,6 +150,37 @@
 	height: 100%;
 	display: flex;
 	align-items: center;
+	/* position: relative; */
+}
+
+.nav-item-1::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 100%;
+	width: 100%;
+	/* height: 35px; */
+	/* height: 100px; */
+	/* background: transparent; */
+	background: fuchsia;
+	pointer-events: auto;
+	display: none;
+	z-index: 999;
+}
+
+.nav-item-1:hover::after {
+	display: block;
+}
+
+.mega-menu-dropdown {
+	position: absolute;
+	margin-top: -8px; /* start here, increase until it butts up snug */
+	z-index: 999;
+	pointer-events: none;
+}
+
+.nav-item-1:hover .mega-menu-dropdown {
+	pointer-events: auto;
 }
 
 .nav-link-1 {
@@ -157,10 +188,11 @@
 	text-decoration: none;
 	text-transform: uppercase;
 	font-weight: 700;
-	font-size: 14px;
+	/* font-size: 14px; */
+	font-size: 1rem;
 	letter-spacing: 0.5px;
 	position: relative;
-	padding: 24px 0;
+	/* padding: 24px 0; */
 }
 
 .nav-link-1:hover,
@@ -180,9 +212,9 @@
 .mega-menu-dropdown {
 	display: none; /* Hidden by default */
 	position: absolute;
-	top: 100%; /* Below the navbar */
+	top: 100%;
 	left: 0;
-	width: 100%;
+	width: 100vw;
 	background-color: var(--white);
 	border-bottom: 1px solid var(--grey-200);
 	z-index: 900;
@@ -190,6 +222,7 @@
 	opacity: 0;
 	visibility: hidden;
 	transition: all 0.2s ease-in-out;
+	/* pointer-events: none; */
 }
 
 .mega-menu-inner {
@@ -199,6 +232,9 @@
 
 /* Left Sidebar of Mega Menu */
 .mega-sidebar {
+	position: absolute;
+	left: 0;
+	height: 100%;
 	width: 300px;
 	background-color: #f9f9f9; /* Light grey sidebar */
 	list-style: none;
@@ -280,5 +316,6 @@
 }
 
 .panel-links a:hover {
-	color: var(--blue);
+	/* color: var(--blue); */
+	cursor: pointer;
 }

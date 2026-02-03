@@ -6,7 +6,11 @@ const liveEdit = process.env.CONTENTSTACK_LIVE_EDIT_TAGS === "true";
 export const getHeaderRes = async () => {
 	const response = await Stack.getEntry({
 		contentTypeUid: "header",
-		referenceFieldPath: ["navigation_menu.page_reference"],
+		// referenceFieldPath: ["navigation_menu.page_reference"],
+		referenceFieldPath: [
+			"navigation_menu.page_reference",
+			"navigation_menu.search_bar",
+		],
 		jsonRtePath: ["notification_bar.announcement_text"],
 	});
 

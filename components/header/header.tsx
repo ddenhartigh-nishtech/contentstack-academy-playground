@@ -6,14 +6,16 @@ import { usePathname } from "next/navigation";
 import Skeleton from "react-loading-skeleton";
 import { onEntryChange } from "../../contentstack-sdk";
 import { getHeaderRes, getAllEntries } from "../../helper";
-import { PersonIcon, CartIcon, SearchIcon } from "../icons/index";
+import { CartIcon, SearchIcon } from "../icons/index";
 import { HeaderData } from "./HeaderInterfaces";
 import "./Header.css";
+import AccountMenu from "../AccountMenu/AccountMenu";
 
 export default function Header() {
 	// --- State ---
 	const [headerData, setHeaderData] = useState<HeaderData | null>(null);
-	const [isLoggedIn, setIsLoggedIn] = useState(false); // Toggle this to test login state
+	// const [isLoggedIn, setIsLoggedIn] = useState(false); // Toggle this to test login state
+	const [isLoggedIn, setIsLoggedIn] = useState(true); // Toggle this to test login state
 	const pathname = usePathname();
 
 	// --- Fetch Data (Existing Logic) ---
@@ -21,8 +23,8 @@ export default function Header() {
 		try {
 			const headerRes: HeaderData = await getHeaderRes();
 			const entriesRes = await getAllEntries(); // maybe this could be used for header messages?
-			console.log("Header Response:", headerRes);
-			console.log("All Entries Response:", entriesRes);
+			// console.log("Header Response:", headerRes);
+			// console.log("All Entries Response:", entriesRes);
 			setHeaderData(headerRes);
 		} catch (error) {
 			console.error(error);
@@ -53,32 +55,87 @@ export default function Header() {
 			{/* --- ROW 1: navigation menu --- */}
 			<div className="utility-bar">
 				<div className="max-width utility-container">
-					{/* Search Bar */}
-					<div className="search-wrapper">
-						<form onSubmit={handleSearch} className="search-form">
-							<input
-								type="text"
-								placeholder="How can we help?"
-								className="search-input"
-							/>
-							<button type="submit" className="search-btn">
-								<SearchIcon />
-							</button>
-						</form>
-					</div>
-
-					{/* more logic needs to be done here for Account & Cart Icons, currently Account Menu and Cart are shown, but they should only shown when isLoggedIn == true and "sign in" should then be hidden.  Also, Account Menu should not show "Account Menu" but the person icon and clicking it should create a dropdown with the account_menu options.. this should probably be its own component */}
+					{/* should prbobably be its own AccountMenu component */}
 					{/* Links */}
 					{headerData?.navigation_menu &&
-						headerData?.navigation_menu.map((item, index) => (
-							<Link
-								key={index}
-								href={item.page_reference?.[0]?.url || "#"}
-								className="u-link"
-							>
-								{item.label}
-							</Link>
-						))}
+						headerData?.navigation_menu.map((item, index) => {
+							if (item.label?.toLowerCase() === "main search") {
+								return (
+									<div
+										key={`${index}-search`}
+										className="search-wrapper"
+									>
+										<form
+											onSubmit={handleSearch}
+											className="search-form"
+										>
+											<input
+												type="text"
+												placeholder={
+													item.search_bar?.[0]
+														?.placeholder_text
+												}
+												className="search-input"
+											/>
+											<button
+												type="submit"
+												className="search-btn"
+											>
+												<SearchIcon />
+											</button>
+										</form>
+									</div>
+								);
+							} else if (
+								item.label?.toLowerCase() === "sign in"
+							) {
+								return !isLoggedIn ? (
+									<Link
+										key={`${index}-signin`}
+										href={item.page_reference?.[0]?.url}
+										className="u-link"
+									>
+										{item.label}
+									</Link>
+								) : null;
+							} else if (
+								item.label?.toLowerCase() === "account menu"
+							) {
+								return isLoggedIn ? (
+									<AccountMenu
+										key={`${index}-accountmenu`}
+										data={item.account_menu}
+									/>
+								) : null;
+							} else if (item.label?.toLowerCase() === "cart") {
+								if (isLoggedIn) {
+									return (
+										<Link
+											key={`${index}-cart`}
+											href={item.page_reference?.[0]?.url}
+											className="u-link"
+										>
+											{item.label?.toLowerCase() ===
+											"cart" ? (
+												<CartIcon />
+											) : (
+												item.label
+											)}
+										</Link>
+									);
+								}
+							} else {
+								return (
+									<Link
+										key={`${index}-link`}
+										href={item.page_reference?.[0]?.url}
+										className="u-link"
+									>
+										{item.label}
+									</Link>
+								);
+							}
+						})}
 				</div>
 			</div>
 

@@ -87,12 +87,28 @@ interface PageReference {
 }
 
 // Search Bar Interface
+// interface SearchBar {
+// 	uid: string;
+// 	_content_type_uid: string;
+// 	$: {
+// 		uid: DataCslp;
+// 		_content_type_uid: DataCslp;
+// 	};
+// }
 interface SearchBar {
 	uid: string;
-	_content_type_uid: string;
-	$: {
+	title: string;
+	placeholder_text: string;
+	button_aria_label: string;
+	submit_action: string;
+	tracking_name: string;
+	$?: {
 		uid: DataCslp;
-		_content_type_uid: DataCslp;
+		title: DataCslp;
+		placeholder_text: DataCslp;
+		button_aria_label: DataCslp;
+		submit_action: DataCslp;
+		tracking_name: DataCslp;
 	};
 }
 
